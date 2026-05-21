@@ -1,1 +1,6 @@
-
+/* This will turn your website's boring white background into a sleek dark gray */
+body {
+    background-color: #121212;
+    color: #ffffff;
+    font-family: sans-serif;
+}
