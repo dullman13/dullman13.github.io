@@ -1,6 +1,137 @@
-/* This will turn your website's boring white background into a sleek dark gray */
+/* ==========================================
+   1. BASE STYLES & RESET
+   ========================================== */
 body {
-    background-color: #121212;
-    color: #ffffff;
+    margin: 0;
+    padding: 0;
+    background-color: #121212; /* Sleek dark mode background */
+    color: #e0e0e0;             /* Easy-to-read light text */
     font-family: sans-serif;
+}
+
+/* ==========================================
+   2. NAVIGATION HEADER
+   ========================================== */
+header {
+    background-color: #1a1a1a;
+    color: #FF69B4; /* Hot Pink */
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid #FF69B4; /* Pink accent line */
+}
+
+header h1 {
+    font-family: "Bitcount Prop Double", "Bitcount Grid Double", sans-serif;
+    margin: 0;
+    font-size: 2.2rem;
+    letter-spacing: 1px;
+}
+
+nav a {
+    color: #ffffff;
+    text-decoration: none;
+    margin-left: 1.5rem;
+    font-weight: bold;
+    transition: color 0.2s ease;
+}
+
+nav a:hover {
+    color: #FFFF33; /* Neon Yellow hover effect */
+    text-decoration: none;
+}
+
+/* ==========================================
+   3. HERO / MAIN ATTENTION SECTION
+   ========================================== */
+.hero {
+    text-align: center;
+    padding: 6rem 2rem;
+    background-color: #1a1a1a;
+}
+
+.hero h2 {
+    font-family: "Bitcount Grid Double", sans-serif;
+    font-size: 2.8rem;
+    margin-bottom: 1.5rem;
+    color: #FF69B4;
+}
+
+.hero p {
+    font-size: 1.3rem;
+    color: #93E9BE; /* Light Mint Green */
+    max-width: 650px;
+    margin: 0 auto 2.5rem auto;
+    line-height: 1.6;
+}
+
+/* Standard Hero Button */
+.btn {
+    background-color: #FF69B4;
+    color: #000000;
+    padding: 0.8rem 2rem;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: background-color 0.2s ease;
+}
+
+.btn:hover {
+    background-color: #FFFF33;
+    cursor: pointer;
+}
+
+/* ==========================================
+   4. MAIN CONTENT AREA
+   ========================================== */
+.content {
+    max-width: 800px;
+    margin: 5rem auto;
+    padding: 2.5rem;
+    background-color: #1a1a1a; /* Changed from old neon green to clean dark card */
+    border-radius: 8px;
+    border: 1px solid #2d2d2d;
+}
+
+.content h3 {
+    color: #FF69B4;
+    font-size: 1.8rem;
+    margin-top: 0;
+}
+
+.content p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: #cccccc;
+}
+
+/* ==========================================
+   5. FOOTER & EMAIL BUTTON
+   ========================================== */
+footer {
+    background-color: #1a1a1a;
+    color: #888888;
+    text-align: center;
+    padding: 3rem 2rem;
+    font-size: 0.95rem;
+    border-top: 1px solid #2d2d2d;
+}
+
+/* Custom Styled Contact Email Button */
+.email-btn {
+    background-color: #FF69B4;
+    color: #000000;
+    padding: 12px 24px;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 5px;
+    display: inline-block;
+    margin-top: 1rem;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.email-btn:hover {
+    background-color: #FFFF33;
+    transform: scale(1.03); /* Slight pop animation on hover */
 }
