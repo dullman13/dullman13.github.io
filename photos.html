@@ -1,1 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Glizzy Gang</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bitcount+Grid+Double:wght@100..900&display=swap" rel="stylesheet">
 
+    <style>
+        :root {
+            --yellow: #f5e642;
+            --red: #e8242a;
+            --black: #0d0d0d;
+            --off-white: #f0ece0;
+            --grease: #1a1508;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--black);
+            color: var(--off-white);
+            font-family: 'Special Elite', monospace;
+            overflow-x: hidden;
+            cursor: crosshair;
+        }
+
+        /* === GRAIN OVERLAY === */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.08'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0.4;
+        }
+
+        /* === HEADER === */
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.2rem 2.5rem;
+            border-bottom: 3px solid var(--yellow);
+            background: var(--black);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        header h1 {
+            font-family: 'Bitcount Grid Double', sans-serif;
+            font-size: clamp(2rem, 5vw, 3.2rem);
+            letter-spacing: 0.08em;
+            color: var(--yellow);
+            text-shadow: 3px 3px 0 var(--red), 6px 6px 0 rgba(0,0,0,0.4);
+            animation: flicker 6s infinite;
+        }
+
+        @keyframes flicker {
+            0%, 95%, 100% { opacity: 1; }
+            96% { opacity: 0.7; }
+            97% { opacity: 1; }
+            98% { opacity: 0.5; }
+            99% { opacity: 1; }
+        }
+
+        nav {
+            display: flex;
+            gap: 2rem;
+        }
+
+        nav a {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.3rem;
+            letter-spacing: 0.12em;
+            color: var(--off-white);
+            text-decoration: none;
+            position: relative;
+            transition: color 0.2s;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--red);
+            transition: width 0.25s ease;
+        }
+
+        nav a:hover {
+            color: var(--yellow);
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        /* === HERO === */
+        .hero {
+            min-height: 90vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: clamp(3rem, 8vw, 7rem) clamp(1.5rem, 6vw, 5rem);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* diagonal stripe background */
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: repeating-linear-gradient(
+                -55deg,
+                transparent,
+                transparent 40px,
+                rgba(245, 230, 66, 0.028) 40px,
+                rgba(245, 230, 66, 0.028) 42px
+            );
+            pointer-events: none;
+        }
+
+        /* big decorative number */
+        .hero::after {
+            content: 'GG';
+            position: absolute;
+            right: -0.05em;
+            bottom: -0.15em;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(12rem, 30vw, 26rem);
+            color: rgba(245, 230, 66, 0.04);
+            line-height: 1;
+            pointer-events: none;
+            user-select: none;
+        }
+
+        .hero-tag {
+            font-family: 'Permanent Marker', cursive;
+            font-size: clamp(0.8rem, 2vw, 1rem);
+            color: var(--red);
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+            animation: slideIn 0.6s ease both;
+        }
+
+        .hero h2 {
+            font-family: 'Bitcount Grid Double', sans-serif;
+            font-size: clamp(3rem, 9vw, 8rem);
+            line-height: 0.92;
+            letter-spacing: 0.02em;
+            color: var(--off-white);
+            max-width: 14ch;
+            margin-bottom: 2rem;
+            animation: slideIn 0.7s ease 0.1s both;
+        }
+
+        .hero h2 span {
+            color: var(--yellow);
+            display: block;
+        }
+
+        .hero-body {
+            max-width: 600px;
+            animation: slideIn 0.7s ease 0.2s both;
+        }
+
+        .hero p {
+            font-size: clamp(0.9rem, 1.8vw, 1.05rem);
+            line-height: 1.75;
+            color: rgba(240, 236, 224, 0.8);
+            margin-bottom: 0.9rem;
+        }
+
+        .hero p strong {
+            color: var(--yellow);
+            font-style: italic;
+        }
+
+        .hero-actions {
+            margin-top: 2.5rem;
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            animation: slideIn 0.7s ease 0.3s both;
+        }
+
+        .btn {
+            display: inline-block;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.15rem;
+            letter-spacing: 0.15em;
+            padding: 0.75rem 2rem;
+            background: var(--yellow);
+            color: var(--black);
+            text-decoration: none;
+            border: 2px solid var(--yellow);
+            position: relative;
+            transition: all 0.18s ease;
+            clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            inset: 3px;
+            border: 1px solid rgba(0,0,0,0.2);
+            clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px));
+            pointer-events: none;
+        }
+
+        .btn:hover {
+            background: var(--red);
+            border-color: var(--red);
+            color: var(--off-white);
+            transform: translate(-2px, -2px);
+            box-shadow: 4px 4px 0 var(--yellow);
+        }
+
+        .btn-ghost {
+            background: transparent;
+            color: var(--off-white);
+            border-color: var(--off-white);
+        }
+
+        .btn-ghost:hover {
+            background: var(--off-white);
+            color: var(--black);
+            box-shadow: 4px 4px 0 rgba(240, 236, 224, 0.3);
+        }
+
+        /* === DIVIDER === */
+        .divider {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 0 clamp(1.5rem, 6vw, 5rem);
+            margin: 1rem 0;
+        }
+
+        .divider-line {
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--yellow), transparent);
+        }
+
+        .divider-icon {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.4rem;
+            color: var(--red);
+            letter-spacing: 0.2em;
+        }
+
+        /* === MAIN CONTENT === */
+        .content {
+            padding: clamp(3rem, 7vw, 6rem) clamp(1.5rem, 6vw, 5rem);
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: start;
+        }
+
+        @media (max-width: 700px) {
+            .content { grid-template-columns: 1fr; }
+        }
+
+        .content-left {
+            animation: slideIn 0.6s ease 0.1s both;
+        }
+
+        .content h3 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            color: var(--yellow);
+            line-height: 1;
+            margin-bottom: 1.5rem;
+            letter-spacing: 0.04em;
+        }
+
+        .content p {
+            font-size: 1rem;
+            line-height: 1.8;
+            color: rgba(240, 236, 224, 0.8);
+            margin-bottom: 1rem;
+        }
+
+        .disclaimer {
+            margin-top: 2rem;
+            padding: 1rem 1.4rem;
+            border-left: 3px solid var(--red);
+            background: rgba(232, 36, 42, 0.07);
+            font-family: 'Permanent Marker', cursive;
+            font-size: 0.85rem;
+            color: rgba(240, 236, 224, 0.65);
+            line-height: 1.6;
+        }
+
+        /* === STATUS CARD === */
+        .status-card {
+            background: rgba(245, 230, 66, 0.05);
+            border: 1px solid rgba(245, 230, 66, 0.2);
+            padding: 2rem;
+            position: relative;
+            animation: slideIn 0.6s ease 0.2s both;
+        }
+
+        .status-card::before {
+            content: 'STATUS';
+            position: absolute;
+            top: -0.6em;
+            left: 1.5rem;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 0.85rem;
+            letter-spacing: 0.3em;
+            background: var(--black);
+            padding: 0 0.5rem;
+            color: var(--yellow);
+        }
+
+        .status-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.85rem 0;
+            border-bottom: 1px solid rgba(245, 230, 66, 0.08);
+            font-size: 0.95rem;
+        }
+
+        .status-item:last-child {
+            border-bottom: none;
+        }
+
+        .status-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .dot-red { background: var(--red); box-shadow: 0 0 6px var(--red); }
+        .dot-yellow {
+            background: var(--yellow);
+            box-shadow: 0 0 6px var(--yellow);
+            animation: pulse 2s infinite;
+        }
+        .dot-green { background: #4af06e; box-shadow: 0 0 6px #4af06e; }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+
+        .status-label {
+            color: rgba(240, 236, 224, 0.5);
+            font-size: 0.8rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        .status-value {
+            margin-left: auto;
+            font-family: 'Permanent Marker', cursive;
+            font-size: 0.9rem;
+            color: var(--off-white);
+        }
+
+        /* === FOOTER === */
+        footer {
+            margin-top: 4rem;
+            padding: 2rem clamp(1.5rem, 6vw, 5rem);
+            border-top: 3px solid var(--yellow);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+            background: var(--grease);
+        }
+
+        footer p {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1rem;
+            letter-spacing: 0.15em;
+            color: rgba(240, 236, 224, 0.45);
+        }
+
+        .email-btn {
+            display: inline-block;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.15rem;
+            letter-spacing: 0.15em;
+            padding: 0.6rem 1.8rem;
+            background: transparent;
+            color: var(--yellow);
+            text-decoration: none;
+            border: 2px solid var(--yellow);
+            transition: all 0.18s ease;
+            clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px));
+        }
+
+        .email-btn:hover {
+            background: var(--yellow);
+            color: var(--black);
+        }
+
+        /* === ANIMATIONS === */
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(22px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* === SCROLLBAR === */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: var(--black); }
+        ::-webkit-scrollbar-thumb { background: var(--yellow); }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Glizzy Gang</h1>
+        <nav>
+            <a href="#about">About</a>
+            <a href="#contact">Contact</a>
+            <a href="index.html">Home</a>
+        
+        </nav>
+    </header>
+
+    <section class="hero">
+        <p class="hero-tag">&#9679; Est. 2024 probably &nbsp;&#9679;&nbsp; Rolling Hot</p>
+        <h2>Official <span>Glizzy Gang<span>Photo<span>Dump</span></span></h2>
+        <div class="hero-body">
+            <p>This is where the pictues we want to share will be. <strong>No porn will be submitted unless it's classy.</strong></p>
+            <p>Check back once in awhile.You might see something neat.</p>
+            <p>This page is still under construction. It will take some time, and I know it looks like shit. Don't come at me.</p>
+        </div>
+        <div class="hero-actions">
+            <a href="#about" class="btn">Learn More</a>
+            <a href="#contact" class="btn btn-ghost">Get Glizzy</a>
+        </div>
+        </section>
+
+    <div class="divider">
+        <div class="divider-line"></div>
+        <span class="divider-icon">&#9830; GG &#9830;</span>
+        <div class="divider-line"></div>
+    </div>
+
+    <main class="content" id="about">
+        <div class="content-left">
+            <h3>About This Project</h3>
+            <p>This is a work in progress for the foundational members of the Glizzy Gang.</p>
+            <p>Check back regularly for news and updates. This is intended to be a one-stop shop for all Glizzy Gang related shit.</p>
+            <div class="disclaimer">
+                DISCLAIMER: We are not actually a gang, but our numbers will never be disclosed
+            </div>
+        </div>
+
+        <div class="status-card">
+            <div class="status-item">
+                <div class="status-dot dot-green"></div>
+                <span class="status-label">Site Status</span>
+                <span class="status-value">Up & Rollin'</span>
+            </div>
+            <div class="status-item">
+                <div class="status-dot dot-yellow"></div>
+                <span class="status-label">Construction</span>
+                <span class="status-value">Ongoing</span>
+            </div>
+            <div class="status-item">
+                <div class="status-dot dot-yellow"></div>
+                <span class="status-label">Checklists</span>
+                <span class="status-value">Coming Soon</span>
+            </div>
+            <div class="status-item">
+                <div class="status-dot dot-yellow"></div>
+                <span class="status-label">Calendar</span>
+                <span class="status-value">Coming Soon</span>
+            </div>
+            <div class="status-item">
+                <div class="status-dot dot-red"></div>
+                <span class="status-label">Photos</span>
+                <span class="status-value">I'm Trying. I don't know what the fuck I'm doing</span>
+            </div>
+            <div class="status-item">
+                <div class="status-dot dot-green"></div>
+                <span class="status-label">Gang Status</span>
+                <span class="status-value">Active</span>
+            </div>
+        </div>
+    </main>
+
+    <footer id="contact">
+        <p>&copy; 2026 Glizzy Gang. All Rights Reserved or Whatever.</p>
+        <p><a href="mailto:info@glizzygang.club" class="email-btn">Get Glizzy</a></p>
+    </footer>
+
+</body>
+</html>
