@@ -496,4 +496,58 @@ function renderSections() {
     const list = document.createElement('div');
     list.className = 'section-items' + (isOpen ? '' : ' hidden');
 
-    items.f
+    items.forEach((item, idx) => {
+      const isDone = !!checked[item.id];
+      const pc = priorityConfig[item.priority];
+
+      const row = document.createElement('div');
+      row.className = 'item ' + (isDone ? 'done' : (idx % 2 === 0 ? 'even' : 'odd'));
+
+      row.innerHTML = `
+        <div class="checkbox ${isDone ? 'checked' : ''}"></div>
+        <span class="item-text ${isDone ? 'done' : ''}">${item.text}</span>
+        <span class="priority-badge" style="color:${pc.color};background:${pc.bg};border:1px solid ${pc.color}40">${pc.label}</span>
+      `;
+
+      row.addEventListener('click', () => {
+        checked[item.id] = !checked[item.id];
+        save();
+        updateProgress();
+        renderSections();
+      });
+
+      list.appendChild(row);
+    });
+
+    div.appendChild(hdr);
+    div.appendChild(list);
+    container.appendChild(div);
+  });
+
+  // Legend
+  const legend = document.createElement('div');
+  legend.className = 'legend';
+  legend.innerHTML = '<span class="legend-label">Priority:</span>' +
+    Object.entries(priorityConfig).map(([key, val]) =>
+      `<div class="legend-item"><div class="legend-dot" style="background:${val.color}"></div><span>${val.label}</span></div>`
+    ).join('');
+  container.appendChild(legend);
+}
+
+// Filter buttons
+document.getElementById('filters').addEventListener('click', e => {
+  const btn = e.target.closest('.filter-btn');
+  if (!btn) return;
+  currentFilter = btn.dataset.filter;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderSections();
+});
+
+// Init
+updateProgress();
+renderSections();
+</script>
+
+</body>
+</html>
